@@ -1,6 +1,6 @@
 var config = {
     server: '(local)',
-    database: 'APSW'
+    database: 'FEUX'
 };
 
 config.connectionString = "Driver={SQL Server Native Client 11.0};"
