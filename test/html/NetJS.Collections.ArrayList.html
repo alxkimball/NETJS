@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+  <title>NetJS JavaScript Library Test Suite - NetJS.Collections.ArrayList</title>
+    <!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
+    <script src="../../libs/jquery/jquery.js" type="text/javascript"></script>
+  <script src="../../libs/jquery-loader.js" type="text/javascript"></script>
+  <!-- Load local QUnit (grunt requires v1.0.0 or newer). -->
+  <link rel="stylesheet" href="../../libs/qunit/qunit.css" media="screen"/>
+  <script src="../../libs/qunit/qunit.js" type="text/javascript"></script>
+  <!-- Load dependent libs -->
+  <script src="../../libs/underscore-min.js" type="text/javascript"></script>
+  <!-- Load local lib and tests. -->
+  <script src="../../dist/netjs.js" type="text/javascript"></script>
+  <script src="../../dist/netjs.collections.js" type="text/javascript"></script>
+  <script src="../js/NetJS.Collections.ArrayList_test.js" type="text/javascript"></script>
+  <!-- Removing access to jQuery and $. But it'll still be available as _$, if
+       you REALLY want to mess around with jQuery in the console. REMEMBER WE
+       ARE TESTING YOUR PLUGIN HERE -->
+  <script type="text/javascript">window._$ = jQuery.noConflict(true);</script>
+</head>
+<body>
+  <h1 id="qunit-header">NetJS JavaScript Library Test Suite - NetJS.Collections.ArrayList</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+    <span>lame test markup</span>
+    <span>normal test markup</span>
+    <span>awesome test markup</span>
+  </div>
+</body>
+</html>
