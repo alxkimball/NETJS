@@ -1,6 +1,6 @@
 # NetJS JavaScript Library
 
-JavaScript implementation of Linq to Objects in .NET
+JavaScript implementation of .NET's Linq to Objects
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
