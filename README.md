@@ -30,7 +30,7 @@ jQuery(function($) {
 ```
 
 ## Documentation
-_(Coming soon)_
+The library mirrors closely to the .Net framework library.
 
 ## Examples
 _(Coming soon)_
