@@ -33,10 +33,10 @@ jQuery(function($) {
 The library mirrors closely to the .Net framework library.
 
 ## Examples
-_(Coming soon)_
+See tests for full functionality and usage examples.
 
 ## Release History
-_(Nothing yet)_
+2013-12-16 v1.0 The project has been incubating for a while and is due a release. Planning has started for the next release. Let me know if there are any wish lists.
 
 ## License
 Copyright (c) 2013 Alex Kimball  
