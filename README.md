@@ -39,14 +39,14 @@ See tests for full functionality and usage examples.
 2013-12-16 v1.0 The project has been incubating for a while and is due a release. Planning has started for the next release. Let me know if there are any wish lists.
 
 ## Road Map
-v1.1 - Remove dependencies on Underscore and jQuery.
+v0.1 - Remove dependencies on Underscore and jQuery.
 
-v1.2 - Refactor to AMD for RequiresJS or NodeJS.
+v0.2 - Refactor to AMD for RequiresJS or NodeJS.
 
-v2.0 - ECMA Script 6 support version to use built in generators and yield.
+v0.8 - ECMA Script 6 support version to use built in generators and yield.
 
 ## License
-Copyright (c) 2013, 2014 Alex Kimball  
+Copyright (c) 2012-2014 Alex Kimball
 Licensed under the MIT, GPL licenses.
 
 ## Contributing

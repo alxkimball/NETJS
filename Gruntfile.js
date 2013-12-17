@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:NetJS.json>',
+    pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                  'src/netjs/InvalidOperationException.js',
                  'src/netjs/util/IEventObserver.js',
                  'src/netjs/util/Observer.js',				 
-                 'src/netjs/util/Bus.js',				 
+                 'src/netjs/util/Bus.js'
                  ],
            dest: 'dist/netjs.js'
         },
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
                 'src/netjs/collections/ArrayList.js',
 				'src/netjs/collections/Hashtable.js',
 				'src/netjs/collections/DictionaryEntry.js',
-				'src/netjs/collections/DictionaryBase.js',
+				'src/netjs/collections/DictionaryBase.js'
 				],
           dest: 'dist/netjs.collections.js'
       },
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 			 'src/netjs/linq/ILookup.js',
 			 'src/netjs/linq/IOrderedEnumerable.js',
 			 'src/netjs/linq/Enumerable.js',
-			 'src/netjs/collections/ext/ArrayList.js',
+			 'src/netjs/collections/ext/ArrayList.js'
 		],
 		dest: 'dist/netjs.collections.ext.js'
 	  },
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 	  full: {
 	    src:['dist/netjs.js',
 		     'dist/netjs.collections.js',
-			 'dist/netjs.collections.ext.js',
+			 'dist/netjs.collections.ext.js'
 			 /*
              * 'dist/netjs.data.js',
              * 'dist/netjs.data.sqlclient.js',
@@ -123,33 +123,6 @@ module.exports = function(grunt) {
     qunit: {
       files: ['test/**/*.html']
     },
-    lint: {
-      files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
-    },
-    watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint qunit'
-    },
-    jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        browser: true
-      },
-      globals: {
-        jQuery: true,
-        NetJS: true,
-        _: true
-      }
-    },
     uglify: {
 		options: {},
 		dist: {
@@ -157,25 +130,14 @@ module.exports = function(grunt) {
 				'dist/netjs.min.js': ['dist/netjs.js'],
 				'dist/netjs.collections.min.js': ['dist/netjs.collections.js'],
 				'dist/netjs.collections.ext.min.js': ['dist/netjs.collections.ext.js'],
-				'dist/netjs.full.min.js': ['dist/netjs.full.js'],
-			}
-		}
-	},
-	requirejs: {
-		compile: {
-			options : {
-				baseUrl: 'src/lib',
-				name: 'myLib',				
-				out: 'src/lib/main-built.js'
+				'dist/netjs.full.min.js': ['dist/netjs.full.js']
 			}
 		}
 	}
   });
   
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-compress');
 

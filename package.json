@@ -1,13 +1,19 @@
 {
-  "name": "netjs",
-  "version": "0.0.0-ignored",
-  "engines": {
-    "node": ">= 0.6.0"
-  },
-  "scripts": {
-    "test": "grunt qunit"
-  },
-  "devDependencies": {
-    "grunt": "~0.3.11"
-  }
+    "name": "netjs",
+    "description": "JavaScript Implementation of .NET's Linq to Objects",
+    "version": "0.0.1",
+    "private": false,
+    "dependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-copy": "~0.4.1",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-cssmin": "~0.6.1",
+        "grunt-contrib-compress": "~0.5.3",
+        "grunt-contrib-qunit": "~0.3.0"
+    },
+    "scripts": {
+        "test": "grunt qunit"
+    }
 }

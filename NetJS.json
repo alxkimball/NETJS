@@ -2,7 +2,7 @@
   "name": "NetJS",
   "title": "NetJS JavaScript Library",
   "description": "JavaScript implementation of .Net's Linq to Objects",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "homepage": "",
   "author": {
     "name": "Alex Kimball",
