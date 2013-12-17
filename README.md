@@ -36,7 +36,7 @@ The library closely mirrors Microsoft's .Net framework library (http://msdn.micr
 See tests for full functionality and usage examples.
 
 ## Release History
-2013-12-17 v0.0.1 The project has been incubating for a while and is due a release. Planning has started for the next release. Let me know if there are any wish lists.
+See CHANGELOG
 
 ## Road Map
 v0.1 - Remove dependencies on Underscore and jQuery.
