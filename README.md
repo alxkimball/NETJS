@@ -5,8 +5,8 @@ JavaScript implementation of .NET's Linq to Objects
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/alxkimball/NETJS/master/netjs.full.min.js
-[max]: https://raw.github.com/alxkimball/NETJS/master/netjs.full.js
+[min]: https://raw.github.com/alxkimball/NETJS/master/dist/netjs.full.min.js
+[max]: https://raw.github.com/alxkimball/NETJS/master/dist/netjs.full.js
 
 In your web page:
 
