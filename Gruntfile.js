@@ -71,6 +71,7 @@ module.exports = function(grunt) {
 		],
 		dest: 'dist/netjs.collections.ext.js'
 	  },
+      /**
       data: {
           src:['src/netjs/data/Data.js',
               'src/netjs/data/IDbCommand.js',
@@ -94,6 +95,7 @@ module.exports = function(grunt) {
           ],
           dest: 'dist/netjs.data.sqlclient.js'
       },
+      */
 	  full: {
 	    src:['dist/netjs.js',
 		     'dist/netjs.collections.js',
@@ -106,20 +108,7 @@ module.exports = function(grunt) {
 		],
 		dest: 'dist/netjs.full.js'
 	  }
-        },
-    compress: {		
-		gzip: {
-			files: {
-				'dist/netjs.min.js.gz':'dist/netjs.min.js',
-				'dist/netjs.collections.min.js.gz':'dist/netjs.collections.min.js',
-				'dist/netjs.collections.ext.min.js.gz':'dist/netjs.collections.ext.min.js',
-				'dist/netjs.full.min.js.gz':'dist/netjs.full.min.js'
-			},
-			options: {
-				mode: 'gzip'
-			}
-		}
-	},
+    },
     qunit: {
       files: ['test/**/*.html']
     },
@@ -139,7 +128,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task.
   grunt.registerTask('default', ['concat', 'qunit', 'uglify']);
