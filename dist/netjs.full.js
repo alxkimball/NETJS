@@ -1,3 +1,10 @@
+/**
+ * NETJS v0.0.1 - 2012-12-17
+ * JavaScript Implementation of .NET's Linq to Objects
+ *
+ * Copyright (c) 2012-2014 Alex Kimball <alexander.e.kimball@gmail.com>
+ * Licensed GPL,MIT
+ */
 (function () {
 	'use strict';
     /**
