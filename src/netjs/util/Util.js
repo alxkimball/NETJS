@@ -1,35 +1,64 @@
-netjs.Util = (function ($) {
+/**
+ * Requires PreReqs.js
+ */
+netjs.Util = (function () {
 	'use strict';
-	//define the the netjs.Util if not defined 
+
+    /**
+     * define the the netjs.Util if not defined
+     */
     var util = netjs.Util || {};
-	
-	var _uid, _proxy;
-    _uid = function () {
-        return Math.floor(Math.random() * 4294967296).toString(8);
+
+    /**
+     * Create a relatively unique base-16(0-ffffffff) id
+     * @returns {string} The generated unique id
+     */
+	util.uid = function () {
+        return Math.floor(Math.random() * 4294967296).toString(16);
     };
 
-    util.uid = _uid;
-
+    /**
+     * Determine if a string begins with a specified substring
+     * TODO Move this to a String Util file
+     */
     if (typeof String.prototype.startsWith !== 'function') {
         String.prototype.startsWith = function (str) {
-            return this.indexOf(str, 0) !== -1;
+            return this.indexOf(str, 0) === 0;
         };
     }
 
-    _proxy = function (instance, prefixes) {
-        /// <summary>
-        /// Create a proxy object by removing functions or
-        /// properties that begin with chars in the prefix list.
-        /// Default list is ['_'](single underscore).
-        /// </summary>
-        /// <param name="instance">The hard instance</param>
-        /// <param name="prefixes">The prefixes to exclude</param>
-        /// <returns type="">A proxy object</returns>
+    /**
+     * Create a proxy method
+     * @param method The method
+     * @param instance The context(this) in which to execute the method
+     */
+    util.proxyMethod = function (method, instance) {
+        if (typeof method === 'function') {
+            return method.bind(instance);
+        } else
+            throw 'Cannot proxy a non-method';
+    };
+
+    /**
+     * Create a proxy object by removing functions or
+     * properties that begin with chars in the prefix list.
+     * @param instance The hard instance
+     * @param prefixes The prefixes to exclude, Default list is ['_'](single underscore).
+     * @returns {{}} A proxy object
+     */
+    util.proxy = function (instance, prefixes) {
         var pre = prefixes || ['_'],
 			proxy = {},
-			resereved = ['constructor', 'prototype'],
+			reserved = ['constructor', 'prototype'],
 			prop,
-			i,
+            _isPre = function(prop, prefixes) {
+                for (var i = 0; i < prefixes.length; i += 1) {
+                    if (prop.startsWith(prefixes[i])) {
+                        return true;
+                    }
+                }
+                return false;
+            },
 			_makeProp = function (prop) {
 				var pax = prop;
 				Object.defineProperty(proxy, prop, {
@@ -44,16 +73,14 @@ netjs.Util = (function ($) {
 				});
 			};
         for (prop in instance) {
-            if (resereved.indexOf(prop) < 0) {
-                for (i = 0; i < pre.length; i += 1) {
-                    if (!prop.startsWith(pre[i])) {
-                        if (typeof instance[prop] === 'object') {
-                            proxy[prop] = _proxy(instance[prop]);
-                        } else if (typeof instance[prop] === 'function') {
-                            proxy[prop] = $.proxy(instance[prop], instance);
-                        } else {
-							_makeProp(prop);
-						}
+            if (reserved.indexOf(prop) < 0) {
+                if (!_isPre(prop, pre)) {
+                    if (typeof instance[prop] === 'object') {
+                        proxy[prop] = _proxy(instance[prop]);
+                    } else if (typeof instance[prop] === 'function') {
+                        proxy[prop] = util.proxyMethod(instance[prop], instance);
+                    } else {
+                        _makeProp(prop);
                     }
                 }
             }
@@ -61,26 +88,23 @@ netjs.Util = (function ($) {
 
         return proxy;
     };
-	
-	util.proxy = _proxy;
-	
-	var _proxyForMethods = function (instance, methods) {
-        /// <summary>
-        /// Create a proxy object with ONLY the functions defined in the methods array.
-        /// </summary>
-        /// <param name="instance">The hard instance</param>
-        /// <param name="methods">The string array of method names for which to inculde in the proxy</param>
-        /// <returns type="">A proxy object</returns>
+
+    /**
+     * Create a proxy object with ONLY the functions defined in the methods array.
+     * @param instance The hard instance
+     * @param methods The string array of method names for which to included in the proxy
+     * @returns {{}} A proxy object
+     */
+    util.proxyForMethods = function (instance, methods) {
         var proxy = {},
 			resereved = ['constructor', 'prototype'],
-			prop,
-			i;
+			prop;
         for (prop in instance) {
             if (resereved.indexOf(prop) < 0) {
                 if (typeof instance[prop] === 'function') {
 					if(methods && methods.length > 0){
 						if(methods.indexOf(prop) > -1){
-							proxy[prop] = $.proxy(instance[prop], instance);
+							proxy[prop] = util.proxyMethod(instance[prop], instance);
 						}
 					}
 				}
@@ -90,7 +114,5 @@ netjs.Util = (function ($) {
         return proxy;
     };
 
-    util.proxyForMethods = _proxyForMethods;
-
     return util;
-} (jQuery));
+} ());

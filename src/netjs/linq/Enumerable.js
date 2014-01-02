@@ -1764,6 +1764,6 @@ netjs.linq.Enumerable = (function (_, netjs, enumerables) {
 		ProjectionComparer: ProjectionComparer,
 		ReverseComparer: ReverseComparer,
 		LookUp: LookUp,
-		CompoundProjectionEnumerable: CompoundProjectionEnumerable,
+		CompoundProjectionEnumerable: CompoundProjectionEnumerable
 	};
 }(_, netjs))));

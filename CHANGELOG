@@ -9,3 +9,9 @@ v0.0.2:
     - added requirejs npm module
     - removed Database extensions from src,
         Node-based database implementation will require maturity ad a major release yet to be planned.
+v0.0.3:
+  date: 2014-01-02
+  changes:
+    - refactored netjs.Util to not depend on jQuery or underscore.js
+    - added tests for netjs.Util
+    - fixed bugs with String.prototype.startsWith and netjs.Util.proxy(when specifying prefixes)

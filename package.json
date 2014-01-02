@@ -1,7 +1,7 @@
 {
   "name": "netjs",
   "description": "JavaScript Implementation of .NET's Linq to Objects",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "",
   "private": false,
   "author": {

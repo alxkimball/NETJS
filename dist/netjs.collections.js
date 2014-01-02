@@ -1,5 +1,5 @@
 /**
- * netjs JavaScript Implementation of .NET's Linq to Objects v0.0.1
+ * netjs JavaScript Implementation of .NET's Linq to Objects v0.0.3
  * Copyright (c) 2014, Alex Kimball
  * Licensed: MIT, GPL
  * Date: 2014-01-02

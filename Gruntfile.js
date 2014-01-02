@@ -86,6 +86,11 @@ module.exports = function(grunt) {
     },
     qunit: {
       files: ['test/**/*.html']
+        /*
+        files: [
+            'test/html/NetJS.Util.html'
+        ]
+        */
     },
     uglify: {
 		options: {},
