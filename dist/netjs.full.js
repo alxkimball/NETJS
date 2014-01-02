@@ -1,9 +1,8 @@
 /**
- * NETJS v0.0.1 - 2012-12-17
- * JavaScript Implementation of .NET's Linq to Objects
- *
- * Copyright (c) 2012-2014 Alex Kimball <alexander.e.kimball@gmail.com>
- * Licensed GPL,MIT
+ * netjs JavaScript Implementation of .NET's Linq to Objects v0.0.1
+ * Copyright (c) 2014, Alex Kimball
+ * Licensed: MIT, GPL
+ * Date: 2014-01-02
  */
 (function () {
 	'use strict';
@@ -602,11 +601,6 @@ netjs.Util.IEventObserver = (function (netjs){
 
     return IEventObserver;
 }(netjs));
-/**
- * jQuery Tiny Pub/Sub - v0.7 - 10/27/2011
- * http://benalman.com/
- * Copyright (c) 2011 "Cowboy" Ben Alman; Licensed MIT, GPL 
- */
 netjs.Util.Observer = (function ($, netjs) {
     'use strict';
 

@@ -4,17 +4,22 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    meta: {
-      banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-        '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
-        '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
-    },
     concat: {
 		options: {
 			// define a string to put between each file in the concatenated output
-			separator: '\n'
+			separator: '\n',
+            stripBanners: true,
+            banner: '/**' + grunt.util.linefeed
+                + ' * <%= pkg.name %> <%= pkg.description %> v<%= pkg.version %>'
+                + grunt.util.linefeed
+                + ' * Copyright (c) <%= grunt.template.today("yyyy") %>, <%= pkg.author.name %>'
+                + grunt.util.linefeed
+                + ' * Licensed: <%= _.pluck(pkg.licenses, "type").join(", ") %>'
+                + grunt.util.linefeed
+                + ' * Date: <%= grunt.template.today("yyyy-mm-dd") %>'
+                + grunt.util.linefeed
+                + ' */'
+                + grunt.util.linefeed
 		},
         core: {
            src: ['src/netjs/PreReqs.js',
@@ -71,40 +76,10 @@ module.exports = function(grunt) {
 		],
 		dest: 'dist/netjs.collections.ext.js'
 	  },
-      /**
-      data: {
-          src:['src/netjs/data/Data.js',
-              'src/netjs/data/IDbCommand.js',
-              'src/netjs/data/IDbConnection.js',
-              'src/netjs/data/IDbTransaction.js',
-              'src/netjs/data/ConnectionState.js',
-              'src/netjs/data/common/Common.js',
-              'src/netjs/data/common/DbCommand.js',
-              'src/netjs/data/common/DbConnection.js',
-              'src/netjs/data/common/DbTransaction.js'
-          ],
-          dest: 'dist/netjs.data.js'
-      },
-      data_sqlclient: {
-          src: ['src/netjs/data/sqlclient/SqlClient.js',
-              'src/netjs/data/sqlclient/SqlException.js',
-              'src/netjs/data/sqlclient/SqlClientFactory.js',
-              'src/netjs/data/sqlclient/SqlCommand.js',
-              'src/netjs/data/sqlclient/SqlConnection.js',
-              'src/netjs/data/sqlclient/SqlCredential.js'
-          ],
-          dest: 'dist/netjs.data.sqlclient.js'
-      },
-      */
 	  full: {
 	    src:['dist/netjs.js',
 		     'dist/netjs.collections.js',
 			 'dist/netjs.collections.ext.js'
-			 /*
-             * 'dist/netjs.data.js',
-             * 'dist/netjs.data.sqlclient.js',
-             * 'src/netjs/NodeModuleDefinition.js'
-			 */
 		],
 		dest: 'dist/netjs.full.js'
 	  }

@@ -2,3 +2,10 @@ v0.0.1:
   date: 2013-12-17
   changes:
     - initial release
+v0.0.2:
+  date: 2014-01-01
+  changes:
+    - cleaned Gruntfile.js
+    - added requirejs npm module
+    - removed Database extensions from src,
+        Node-based database implementation will require maturity ad a major release yet to be planned.

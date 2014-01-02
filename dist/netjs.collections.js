@@ -1,3 +1,9 @@
+/**
+ * netjs JavaScript Implementation of .NET's Linq to Objects v0.0.1
+ * Copyright (c) 2014, Alex Kimball
+ * Licensed: MIT, GPL
+ * Date: 2014-01-02
+ */
 netjs.collections = (function () {
 	'use strict';
 	

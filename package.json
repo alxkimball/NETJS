@@ -1,18 +1,38 @@
 {
-    "name": "netjs",
-    "description": "JavaScript Implementation of .NET's Linq to Objects",
-    "version": "0.0.1",
-    "private": false,
-    "dependencies": {
-        "grunt": "~0.4.1",
-        "grunt-contrib-copy": "~0.4.1",
-        "grunt-contrib-concat": "~0.3.0",
-        "grunt-contrib-clean": "~0.4.1",
-        "grunt-contrib-uglify": "~0.2.2",
-        "grunt-contrib-cssmin": "~0.6.1",
-        "grunt-contrib-qunit": "~0.3.0"
+  "name": "netjs",
+  "description": "JavaScript Implementation of .NET's Linq to Objects",
+  "version": "0.0.2",
+  "homepage": "",
+  "private": false,
+  "author": {
+    "name": "Alex Kimball",
+    "email": "alexander.e.kimball@gmail.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/alxkimball/NETJS"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "/blob/master/LICENSE-MIT"
     },
-    "scripts": {
-        "test": "grunt qunit"
+    {
+      "type": "GPL",
+      "url": "/blob/master/LICENSE-GPL"
     }
+  ],
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-qunit": "~0.3.0",
+    "grunt-contrib-requirejs": "~0.4.1"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  }
 }
