@@ -2,7 +2,7 @@
  * netjs JavaScript Implementation of .NET's Linq to Objects v0.0.3
  * Copyright (c) 2014, Alex Kimball
  * Licensed: MIT, GPL
- * Date: 2014-01-02
+ * Date: 2014-01-06
  */
 (function () {
 	'use strict';
@@ -133,10 +133,10 @@ netjs.Util = (function () {
      */
     util.proxyForMethods = function (instance, methods) {
         var proxy = {},
-			resereved = ['constructor', 'prototype'],
+			reserved = ['constructor', 'prototype'],
 			prop;
         for (prop in instance) {
-            if (resereved.indexOf(prop) < 0) {
+            if (reserved.indexOf(prop) < 0) {
                 if (typeof instance[prop] === 'function') {
 					if(methods && methods.length > 0){
 						if(methods.indexOf(prop) > -1){
@@ -148,6 +148,24 @@ netjs.Util = (function () {
         }
 
         return proxy;
+    };
+
+    /**
+     * Determine if an object is undefined
+     * @param obj
+     * @returns {boolean}
+     */
+    util.isUndefined = function(obj) {
+        return (obj === undefined || typeof obj === 'undefined');
+    };
+
+    /**
+     * Determine if an object is a function
+     * @param func
+     * @returns {boolean}
+     */
+    util.isFunction = function (func) {
+        return util.isUndefined(func) ? false:  typeof func === 'function';
     };
 
     return util;
@@ -391,7 +409,11 @@ netjs.Abstract = (function () {
     };
 } ());
 
-netjs.Class = (function (_, netjs) {
+
+/**
+ * Requires netjs.util
+ */
+netjs.Class = (function (netjs) {
     'use strict';    
 
     var Class = function Class() {
@@ -435,23 +457,117 @@ netjs.Class = (function (_, netjs) {
     Class.inheritsFrom(Object).isType('Class');
 
     /**
-    * The instance methods of a class are defined as function-valued properties
-    * of the prototype object. The methods defined here are inherited by all
-    * instances and provide the shared behavior of the class. Note that JavaScript
-    * instance methods must use the this keyword to access the instance fields.
-    */
+     * The instance methods of a class are defined as function-valued properties
+     * of the prototype object. The methods defined here are inherited by all
+     * instances and provide the shared behavior of the class. Note that JavaScript
+     * instance methods must use the this keyword to access the instance fields.
+     */
     Class.prototype.toString = function () {
 		var self = this;
         return self.type;
     };
-	
+
+
+    /**
+     * Determine if an object referentially equal to another object.
+     */
+    Object.defineProperty(Class.prototype, "equals", {
+        enumerable: false,
+        value: function (obj) {
+            return this === obj;
+        }
+    });
+
 	/**
-	* Indicates whether the current object is equal to another object of the same type.
-	*/
-	Class.prototype.equals = function (other) {
-		var self = this;
-		return _.isEqual(self, other);
-	};
+	 * Indicates whether the current object is structurally equal to another object of the same type.
+	 */
+    Object.defineProperty(Class.prototype, "isEqual", {
+        enumerable: false,
+        value: function (obj) {
+            var p;
+            if (this === obj) {
+                return true;
+            }
+
+            // some checks for native types first
+
+            // function and sring
+            if (typeof(this) === "function" || typeof(this) === "string" || this instanceof String) {
+                return this.toString() === obj.toString();
+            }
+
+            // number
+            if (this instanceof Number || typeof(this) === "number") {
+                if (obj instanceof Number || typeof(obj) === "number") {
+                    return this.valueOf() === obj.valueOf();
+                }
+                return false;
+            }
+
+            // null.equals(null) and undefined.equals(undefined) do not inherit from the
+            // Object.prototype so we can return false when they are passed as obj
+            if (typeof(this) !== typeof(obj) || obj === null || typeof(obj) === "undefined") {
+                return false;
+            }
+
+            function sort (o) {
+                var result = {};
+
+                if (typeof o !== "object") {
+                    return o;
+                }
+
+                Object.keys(o).sort().forEach(function (key) {
+                    result[key] = sort(o[key]);
+                });
+
+                return result;
+            }
+
+            if (typeof(this) === "object") {
+                if (Array.isArray(this)) { // check on arrays
+                    return JSON.stringify(this) === JSON.stringify(obj);
+                } else { // anyway objects
+                    for (p in this) {
+                        if (typeof(this[p]) !== typeof(obj[p])) {
+                            return false;
+                        }
+                        if ((this[p] === null) !== (obj[p] === null)) {
+                            return false;
+                        }
+                        switch (typeof(this[p])) {
+                            case 'undefined':
+                                if (typeof(obj[p]) !== 'undefined') {
+                                    return false;
+                                }
+                                break;
+                            case 'object':
+                                if (this[p] !== null
+                                    && obj[p] !== null
+                                    && (this[p].constructor.toString() !== obj[p].constructor.toString()
+                                    || !this[p].equals(obj[p]))) {
+                                    return false;
+                                }
+                                break;
+                            case 'function':
+                                if (this[p].toString() !== obj[p].toString()) {
+                                    return false;
+                                }
+                                break;
+                            default:
+                                if (this[p] !== obj[p]) {
+                                    return false;
+                                }
+                        }
+                    };
+
+                }
+            }
+
+            // at least check them with JSON
+            return JSON.stringify(sort(this)) === JSON.stringify(sort(obj));
+        }
+    });
 	
 	Class.prototype.getHashCode = function () {
 		var self = this;
@@ -475,13 +591,10 @@ netjs.Class = (function (_, netjs) {
     //Class.func = function(parameters) {
     //};
     //Class.STATIC_VAL = 'some val';
-	Class.equals = function (obj1, obj2) {
-		return _.isEqual(obj1, obj2);
-	}
-	
+
 	return Class;
 
-} (_, netjs));
+} (netjs));
 // This function creates a new enumerated type. The argument object specifies
 // the names and values of each instance of the class. The return value
 // is a constructor function that identifies the new class. Note, however

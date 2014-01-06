@@ -143,4 +143,29 @@
         ok(!_.isUndefined(objB.p_includeByDefault) && _.isObject(objB), 'specified proxy method does exist after proxy call.');
     });
 
+    test('can check if an object is undefined', function () {
+        equal(netjs.Util.isUndefined(undefined), true, 'undefined is undefined');
+        var obj;
+        equal(netjs.Util.isUndefined(obj), true, 'an uninitalized object is undefined');
+        obj = null;
+        equal(netjs.Util.isUndefined(obj), false, 'null is not undefined');
+    });
+
+    test('can check if an object is a function', function () {
+        equal(netjs.Util.isFunction(String.prototype.indexOf), true, 'a function defined in ECMAScript is a function');
+        var obj = {
+            a: function () {},
+            b: undefined,
+            c: null,
+            d: 'function'
+        };
+
+        var func = function func() {};
+        equal(netjs.Util.isFunction(obj.a), true, 'a function defined in a local obj is a function');
+        equal(netjs.Util.isFunction(func), true, 'a function defined in a local scope is a function');
+        equal(netjs.Util.isFunction(obj.b), false, 'undefined is not a function');
+        equal(netjs.Util.isFunction(obj.c), false, 'null is not a function');
+        equal(netjs.Util.isFunction(obj.d), false, 'a non-function property is not a function');
+    });
+
 } (jQuery));

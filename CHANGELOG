@@ -15,3 +15,9 @@ v0.0.3:
     - refactored netjs.Util to not depend on jQuery or underscore.js
     - added tests for netjs.Util
     - fixed bugs with String.prototype.startsWith and netjs.Util.proxy(when specifying prefixes)
+v0.0.4:
+  date: 2014-01-06
+  changes:
+    - refactored netjs.Util and netjs.Class to not depend on jQuery or underscore.js
+    - added tests for netjs.Util
+    - refactored ArrayList test to use object with proper equals implementation

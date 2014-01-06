@@ -41,7 +41,12 @@
 					}
 					
 					throw new TypeError('Incomparable Types');
-				};				
+				};
+
+                Point.prototype.equals = function (point) {
+                    var self = this;
+                    return netjs.Class.prototype.isEqual.call(self, point);
+                };
 				
 				return Point;
 			} ());
@@ -67,7 +72,7 @@
 		while(enumerator.next()){
 			pointsProcessed++;
 		}
-        equal(pointsProcessed, _size, 'ArrayList enumeratorated successfully.');
+        equal(pointsProcessed, _size, 'ArrayList enumerated successfully.');
     });
 	
 	test('can add', function () {

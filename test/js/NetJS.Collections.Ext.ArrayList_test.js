@@ -41,7 +41,12 @@
 					}
 					
 					throw new TypeError('Incomparable Types');
-				};				
+				};
+
+                Point.prototype.equals = function (point) {
+                    var self = this;
+                    return netjs.Class.prototype.isEqual.call(self, point);
+                };
 				
 				return Point;
 			} ());

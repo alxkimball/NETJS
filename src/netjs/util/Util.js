@@ -97,10 +97,10 @@ netjs.Util = (function () {
      */
     util.proxyForMethods = function (instance, methods) {
         var proxy = {},
-			resereved = ['constructor', 'prototype'],
+			reserved = ['constructor', 'prototype'],
 			prop;
         for (prop in instance) {
-            if (resereved.indexOf(prop) < 0) {
+            if (reserved.indexOf(prop) < 0) {
                 if (typeof instance[prop] === 'function') {
 					if(methods && methods.length > 0){
 						if(methods.indexOf(prop) > -1){
@@ -112,6 +112,24 @@ netjs.Util = (function () {
         }
 
         return proxy;
+    };
+
+    /**
+     * Determine if an object is undefined
+     * @param obj
+     * @returns {boolean}
+     */
+    util.isUndefined = function(obj) {
+        return (obj === undefined || typeof obj === 'undefined');
+    };
+
+    /**
+     * Determine if an object is a function
+     * @param func
+     * @returns {boolean}
+     */
+    util.isFunction = function (func) {
+        return util.isUndefined(func) ? false:  typeof func === 'function';
     };
 
     return util;
