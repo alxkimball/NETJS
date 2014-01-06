@@ -129,8 +129,53 @@ netjs.Util = (function () {
      * @returns {boolean}
      */
     util.isFunction = function (func) {
-        return util.isUndefined(func) ? false:  typeof func === 'function';
+        return util.isUndefined(func) ? false :  (typeof func === 'function' || func instanceof Function);
     };
+
+    /**
+     * Determine if an object is an object
+     * @param obj
+     * @returns {boolean}
+     */
+    util.isObject = function (obj) {
+        return util.isUndefined(obj) ? false : (typeof obj === 'object' || obj instanceof Object);
+    };
+
+    /**
+     * Determine if an object is a number
+     * @param num
+     * @returns {boolean}
+     */
+    util.isNumber = function (num) {
+        return util.isUndefined(num) ? false : (typeof num === 'number' || num instanceof Number);
+    };
+
+    /**
+     * Determine if an object is a boolean
+     * @param bool
+     * @returns {boolean}
+     */
+    util.isBoolean = function (bool) {
+        return util.isUndefined(bool) ? false : (typeof bool === 'boolean' || bool instanceof Boolean);
+    };
+
+    /**
+     * Determine if an object is a Date
+     * @param date
+     * @returns {boolean}
+     */
+    util.isDate = function (date) {
+        return util.isUndefined(date) ? false : date instanceof Date;
+    };
+
+    /**
+     * Determine if an object is a string
+     * @param str
+     * @returns {boolean}
+     */
+    util.isString = function (str) {
+        return util.isUndefined(str) ? false : (typeof str === 'string' || str instanceof String);
+    }
 
     return util;
 } ());

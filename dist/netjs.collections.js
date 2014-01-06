@@ -193,7 +193,7 @@ netjs.collections.Comparer = (function (_, netjs) {
 	
 	return Comparer;
 } (_, netjs));
-netjs.collections.EqualityComparer = (function (_, netjs) {
+netjs.collections.EqualityComparer = (function (netjs) {
 	'use strict'
 	var EqualityComparer = function () {};
 		
@@ -204,17 +204,17 @@ netjs.collections.EqualityComparer = (function (_, netjs) {
 		
 		EqualityComparer.prototype.equals = function (x, y) {
 			var self = this;
-			if(_.isObject(x)){
-				if(!_.isUndefined(x.equals)){
+			if(netjs.Util.isObject(x)){
+				if(!netjs.Util.isUndefined(x.equals)){
 					return x.equals(y);
 				}
 			}
-			return _.isEqual(x, y);
+			return netjs.Class.prototype.isEqual.call(x, y);
 		};
 		
 		EqualityComparer.prototype.getHashCode = function (x) {
 			//default string hasher
-			if(_.isString(x)){
+			if(netjs.Util.isString(x)){
 				var sum = 0;
 				for(var charIdx = 0; charIdx < x.length; ++charIdx){
 					sum += x.charCodeAt(charIdx);
@@ -223,22 +223,22 @@ netjs.collections.EqualityComparer = (function (_, netjs) {
 			}
 			
 			//default number hasher
-			if(_.isNumber(x)){
+			if(netjs.Util.isNumber(x)){
 				return Math.round(x);
 			}
 			
 			//default bool hasher
-			if(_.isBoolean(x)){
+			if(netjs.Util.isBoolean(x)){
 				return x ? 1 : 0;
 			}
 			
 			//default date hasher
-			if(_.isDate(x)){
+			if(netjs.Util.isDate(x)){
 				return x.getTime();
 			}
 			
 			//default object hasher
-			if(_.isObject(x)){
+			if(netjs.Util.isObject(x)){
 				if(!_.isUndefined(x.getHashCode)) {
 					return x.getHashCode();
 				}
@@ -254,7 +254,7 @@ netjs.collections.EqualityComparer = (function (_, netjs) {
 		EqualityComparer.Default = _default;
 		
 		return EqualityComparer;
-} (_, netjs));
+} (netjs));
 netjs.collections.CollectionBase = (function (netjs, ListEnumerator) {
 	'use strict';
 	

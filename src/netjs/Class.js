@@ -101,12 +101,9 @@ netjs.Class = (function (netjs) {
     /**
      * Determine if an object referentially equal to another object.
      */
-    Object.defineProperty(Class.prototype, "equals", {
-        enumerable: false,
-        value: function (obj) {
-            return this === obj;
-        }
-    });
+    Class.prototype.equals = function (obj) {
+        return this === obj;
+    };
 
     /**
      * Indicates whether the current object is structurally equal to another object of the same type.

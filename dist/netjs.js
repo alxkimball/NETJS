@@ -165,8 +165,53 @@ netjs.Util = (function () {
      * @returns {boolean}
      */
     util.isFunction = function (func) {
-        return util.isUndefined(func) ? false:  typeof func === 'function';
+        return util.isUndefined(func) ? false :  (typeof func === 'function' || func instanceof Function);
     };
+
+    /**
+     * Determine if an object is an object
+     * @param obj
+     * @returns {boolean}
+     */
+    util.isObject = function (obj) {
+        return util.isUndefined(obj) ? false : (typeof obj === 'object' || obj instanceof Object);
+    };
+
+    /**
+     * Determine if an object is a number
+     * @param num
+     * @returns {boolean}
+     */
+    util.isNumber = function (num) {
+        return util.isUndefined(num) ? false : (typeof num === 'number' || num instanceof Number);
+    };
+
+    /**
+     * Determine if an object is a boolean
+     * @param bool
+     * @returns {boolean}
+     */
+    util.isBoolean = function (bool) {
+        return util.isUndefined(bool) ? false : (typeof bool === 'boolean' || bool instanceof Boolean);
+    };
+
+    /**
+     * Determine if an object is a Date
+     * @param date
+     * @returns {boolean}
+     */
+    util.isDate = function (date) {
+        return util.isUndefined(date) ? false : date instanceof Date;
+    };
+
+    /**
+     * Determine if an object is a string
+     * @param str
+     * @returns {boolean}
+     */
+    util.isString = function (str) {
+        return util.isUndefined(str) ? false : (typeof str === 'string' || str instanceof String);
+    }
 
     return util;
 } ());
@@ -370,13 +415,14 @@ netjs.Abstract = (function () {
 	return abstractNS;
 }());
 (function () {
-	'use strict';
+    'use strict';
     Function.prototype.inheritsFrom = function (parent) {
         if (parent.constructor === Function) {
             //Normal Inheritance
             parent._isBase = true;
-			this._isBase = false;
-            var F = function () { };
+            this._isBase = false;
+            var F = function () {
+            };
             F.prototype = parent.prototype;
             this.prototype = new F();
             this.prototype.constructor = this;
@@ -389,13 +435,13 @@ netjs.Abstract = (function () {
         }
         return this; //always return this at end of function prototype extensions
     };
-} ());
+}());
 
 (function () {
-	'use strict';
-	Function.prototype.isType = function (type) {
+    'use strict';
+    Function.prototype.isType = function (type) {
         var _type = type;
-        if (typeof this.type === "undefined") {
+        if (typeof this.type === 'undefined') {
             //Public Read-Only Property for type
             Object.defineProperty(this.prototype, 'type', {
                 enumerable: true,
@@ -407,28 +453,28 @@ netjs.Abstract = (function () {
         }
         return this; //always return this at end of function prototype extensions
     };
-} ());
+}());
 
 
 /**
  * Requires netjs.util
  */
 netjs.Class = (function (netjs) {
-    'use strict';    
+    'use strict';
 
     var Class = function Class() {
         var self = this, _args, _instanceToken;
 
         /**
-        * Call the parent Constructor
-        */
+         * Call the parent Constructor
+         */
         _args = Array.prototype.slice.call(arguments);
         Class._parent.constructor.apply(this, _args);
 
         /**
-        * Private instance variables and functions. These may only be accessed by the
-        * functions of defined in this closure.
-        */
+         * Private instance variables and functions. These may only be accessed by the
+         * functions of defined in this closure.
+         */
         _instanceToken = netjs.Util.uid();
         //Public Read-Only Property for instanceToken
         if (typeof this.instanceToken === "undefined") {
@@ -442,11 +488,11 @@ netjs.Class = (function (netjs) {
         }
 
         /**
-        * Public instance variables and functions. Functions will be copied to
-        * instance objects which is a memory hog. So if the method doesn't change
-        * then you can use the prototype method to access the properties 
-        * of the this reference.
-        */
+         * Public instance variables and functions. Functions will be copied to
+         * instance objects which is a memory hog. So if the method doesn't change
+         * then you can use the prototype method to access the properties
+         * of the this reference.
+         */
         //this.prop = 'value';
         //this.func = function () {
         //    window.log(this.prop);
@@ -463,7 +509,7 @@ netjs.Class = (function (netjs) {
      * instance methods must use the this keyword to access the instance fields.
      */
     Class.prototype.toString = function () {
-		var self = this;
+        var self = this;
         return self.type;
     };
 
@@ -471,16 +517,13 @@ netjs.Class = (function (netjs) {
     /**
      * Determine if an object referentially equal to another object.
      */
-    Object.defineProperty(Class.prototype, "equals", {
-        enumerable: false,
-        value: function (obj) {
-            return this === obj;
-        }
-    });
+    Class.prototype.equals = function (obj) {
+        return this === obj;
+    };
 
-	/**
-	 * Indicates whether the current object is structurally equal to another object of the same type.
-	 */
+    /**
+     * Indicates whether the current object is structurally equal to another object of the same type.
+     */
     Object.defineProperty(Class.prototype, "isEqual", {
         enumerable: false,
         value: function (obj) {
@@ -510,7 +553,7 @@ netjs.Class = (function (netjs) {
                 return false;
             }
 
-            function sort (o) {
+            function sort(o) {
                 var result = {};
 
                 if (typeof o !== "object") {
@@ -559,7 +602,8 @@ netjs.Class = (function (netjs) {
                                     return false;
                                 }
                         }
-                    };
+                    }
+                    ;
 
                 }
             }
@@ -568,33 +612,33 @@ netjs.Class = (function (netjs) {
             return JSON.stringify(sort(this)) === JSON.stringify(sort(obj));
         }
     });
-	
-	Class.prototype.getHashCode = function () {
-		var self = this;
-		return parseInt(self.instanceToken, 10);
-	};
+
+    Class.prototype.getHashCode = function () {
+        var self = this;
+        return parseInt(self.instanceToken, 10);
+    };
 
     /**
-    * To override a prototype method simple declare method of the same name.
-    * To override and use the parent class implementation use call or apply
-    * passing the child class as the thisArg
-    */
+     * To override a prototype method simple declare method of the same name.
+     * To override and use the parent class implementation use call or apply
+     * passing the child class as the thisArg
+     */
     //ChildofClass.prototype.toString = function() {
     //    return netjs.ChildofClass._parent.toString.call(this) + 'stuff';
     //};
 
     /**
-    * Class fields (such as constants) and class methods are defined as
-    * properties of the constructor. Note that class methods do not
-    * generally use the this keyword: they operate only on their arguments.
-    */
+     * Class fields (such as constants) and class methods are defined as
+     * properties of the constructor. Note that class methods do not
+     * generally use the this keyword: they operate only on their arguments.
+     */
     //Class.func = function(parameters) {
     //};
     //Class.STATIC_VAL = 'some val';
 
-	return Class;
+    return Class;
 
-} (netjs));
+}(netjs));
 // This function creates a new enumerated type. The argument object specifies
 // the names and values of each instance of the class. The return value
 // is a constructor function that identifies the new class. Note, however

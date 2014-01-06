@@ -163,9 +163,39 @@
         var func = function func() {};
         equal(netjs.Util.isFunction(obj.a), true, 'a function defined in a local obj is a function');
         equal(netjs.Util.isFunction(func), true, 'a function defined in a local scope is a function');
+        equal(netjs.Util.isFunction(new Function()), true, 'a Function defined in a local scope is a function');
         equal(netjs.Util.isFunction(obj.b), false, 'undefined is not a function');
         equal(netjs.Util.isFunction(obj.c), false, 'null is not a function');
         equal(netjs.Util.isFunction(obj.d), false, 'a non-function property is not a function');
+    });
+
+    test('can check if an object is an object', function () {
+        equal(netjs.Util.isObject({}), true, 'an empty dynamic object is an object');
+        equal(netjs.Util.isObject({a: 123, f: function(){}}), true, 'an defined dynamic object is an object');
+        var obj = {};
+        equal(netjs.Util.isObject(obj), true, 'a reference object is an object');
+        equal(netjs.Util.isObject(new Object()), true, 'a constructed object is an object');
+        equal(netjs.Util.isObject('string'), false, 'a string is not an object');
+        equal(netjs.Util.isObject(123), false, 'a number is not an object');
+        equal(netjs.Util.isObject(true), false, 'a boolean is not an object');
+        equal(netjs.Util.isObject(new Date()), true, 'a Date is an object, but is a special Object of type Date');
+        equal(netjs.Util.isObject(new Number()), true, 'a Number is an object, but is a special Object of type Number');
+        equal(netjs.Util.isObject(new Boolean()), true, 'a Boolean is an object, but is a special Object of type Boolean');
+    });
+
+    test('can check if an object is an string', function () {
+        equal(netjs.Util.isString('static'), true, 'a static string is a string');
+        equal(netjs.Util.isString(new String('static')), true, 'a String is a string');
+    });
+
+    test('can check if an object is an number', function () {
+        equal(netjs.Util.isNumber(123), true, 'a static number is a number');
+        equal(netjs.Util.isNumber(new Number(123)), true, 'a Number is a number');
+    });
+
+    test('can check if an object is an Date', function () {
+        equal(netjs.Util.isDate('10/01/1965'), false, 'a date string is not a Date');
+        equal(netjs.Util.isDate(new Date('10/01/1965')), true, 'a Date is a Date');
     });
 
 } (jQuery));

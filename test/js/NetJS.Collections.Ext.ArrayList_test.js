@@ -26,7 +26,7 @@
 	var _referenceArray = [];
 	//a test class for creating test objects
 	var Point = (function () {
-				var Point = function (i){
+				var Point = function Point(i){
 					this.id = i,
 					this.x = i,
 					this.y = Math.pow(this.x, 2) + this.x + 1;
