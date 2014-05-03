@@ -89,7 +89,9 @@ module.exports = function(grunt) {
       //files: ['test/html/NetJS.Util.html']
     },
     uglify: {
-		options: {},
+		options: {
+			banner: '/*! <%= pkg.name %> v<%= pkg.version %> <%= pkg.repository.url %> (c)grunt.template.today("yyyy") <%= pkg.author.name %> @licence MIT, GPL */',
+		},
 		dist: {
 			files: {
 				'dist/netjs.min.js': ['dist/netjs.js'],
